@@ -17,6 +17,15 @@
         mode: 0644
         checksum: '{{spark_checksum}}'
         timeout: '{{spark_timeout}}'
+        validate_certs: no
+
+    - name: create spark dest
+      become: yes
+      become_user: root
+      file:
+        path: '{{spark_parent_dir}}'
+        state: directory
+        mode: 0755
 
     - name: unarchive spark....
       become: yes
@@ -26,6 +35,15 @@
         dest: '{{spark_parent_dir}}'
         src: /tmp/{{spark_tgz}}
         creates: '{{spark_target_dir}}'
+
+    - name: link spark.....
+      become: yes
+      become_user: root
+      file:
+        src: '{{spark_target_dir}}'
+        dest: '{{spark_link_dir}}'
+        state: link
+
   always:
     - name: cleanup...
       become: yes
@@ -56,3 +74,4 @@
     src: '{{item.f}}.j2'
     dest: '{{item.d}}/{{item.f}}'
     mode: '{{item.m}}'
+

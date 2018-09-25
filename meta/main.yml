@@ -26,7 +26,5 @@ galaxy_info:
     - hadoop
     - spark
 dependencies:
-  - role: andrewrothstein.unarchive-deps
-    version: v1.0.9
-  - role: andrewrothstein.java-oracle-jre
-    version: v2.0.8
+  - role: ansible-unarchive-deps
+    src: https://github.com/hollardjf/ansible-unarchive-deps.git
